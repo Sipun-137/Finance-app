@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: FinanceApplication
+  profiles:
+    active: dev
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework: DEBUG
+    com.erp: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+
+server:
+  port: 8080
+
+app:
+  security:
+    admin:
+      email: ${ADMIN_EMAIL}
+    jwt:
+      secret: ${JWT_SECRET}
+      expiration: 3   # mention the hours
