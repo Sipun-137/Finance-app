@@ -5,6 +5,8 @@ import com.finance.financeapplication.auth.model.UserPrincipal;
 import com.finance.financeapplication.common.DTO.ApiResponse;
 import com.finance.financeapplication.dashboard.DTO.response.*;
 import com.finance.financeapplication.dashboard.service.DashboardService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,6 +24,7 @@ import java.time.LocalDate;
 @RequestMapping("/api/v1/dashboard")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "Dashboard APIs", description = "Dashboard And Analytics related APIs")
 public class DashboardController {
 
     private final DashboardService dashboardService;
@@ -34,6 +37,7 @@ public class DashboardController {
     @GetMapping("/overview")
     @PreAuthorize("hasAnyRole('ADMIN', 'ANALYST', 'VIEWER')")
     @Auditable(action = "VIEW_DASHBOARD_OVERVIEW", resource = "dashboard")
+    @Operation(summary = "Get OverView")
     public ResponseEntity<ApiResponse<DashboardSummaryResponse>> getOverview(
             Authentication authentication,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
@@ -48,6 +52,7 @@ public class DashboardController {
     @GetMapping("/summary")
     @PreAuthorize("hasAnyRole('ADMIN', 'ANALYST', 'VIEWER')")
     @Auditable(action = "VIEW_DASHBOARD_SUMMARY", resource = "dashboard")
+    @Operation(summary = "Get Summary")
     public ResponseEntity<ApiResponse<SummaryResponse>> getSummary(
             Authentication authentication,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
@@ -60,6 +65,7 @@ public class DashboardController {
     @GetMapping("/category-breakdown")
     @PreAuthorize("hasAnyRole('ADMIN', 'ANALYST')")
     @Auditable(action = "VIEW_CATEGORY_BREAKDOWN", resource = "dashboard")
+    @Operation(summary = "Get Category Breakdown")
     public ResponseEntity<ApiResponse<CategoryBreakdownResponse>> getCategoryBreakdown(
             Authentication authentication,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
@@ -74,6 +80,7 @@ public class DashboardController {
     @GetMapping("/monthly-trends")
     @PreAuthorize("hasAnyRole('ADMIN', 'ANALYST')")
     @Auditable(action = "VIEW_MONTHLY_TREND", resource = "dashboard")
+    @Operation(summary = "Get Monthly Trends")
     public ResponseEntity<ApiResponse<MonthlyTrendResponse>> getMonthlyTrends(
            Authentication authentication,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
@@ -88,6 +95,7 @@ public class DashboardController {
     @GetMapping("/recent-activity")
     @PreAuthorize("hasAnyRole('ADMIN', 'ANALYST', 'VIEWER')")
     @Auditable(action = "VIEW_RECENT_ACTIVITY", resource = "dashboard")
+    @Operation(summary = "Get Recent Activity")
     public ResponseEntity<ApiResponse<RecentActivityResponse>> getRecentActivity(
             Authentication authentication,
             @RequestParam(defaultValue = "10") int limit) {

@@ -31,14 +31,9 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    private JwtFilter jwtFilter;
-
-    @Autowired
-    private CustomAccessDeniedHandler accessDeniedHandler;
+    private final UserDetailsService userDetailsService;
+    private final JwtFilter jwtFilter;
+    private final CustomAccessDeniedHandler accessDeniedHandler;
 
     @Bean
     public AuthenticationProvider authProvider(){
@@ -52,7 +47,13 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         http.cors(Customizer.withDefaults());
         http.authorizeHttpRequests(request->request
-                .requestMatchers("/api/v1/auth/login","/api/v1/health")
+                .requestMatchers(
+                        "/api/v1/auth/login",
+                        "/api/v1/health",
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html"
+                )
                 .permitAll()
                 .anyRequest()
                 .authenticated());
