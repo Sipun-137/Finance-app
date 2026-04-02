@@ -15,6 +15,18 @@ public class RecordSpecification {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
+
+
+            if(filter.getSearchTerm() != null && !filter.getSearchTerm().isBlank()){
+                String likePattern = "%" + filter.getSearchTerm().toLowerCase() + "%";
+                predicates.add(
+                        cb.or(
+                                cb.like(cb.lower(root.get("description")), likePattern),
+                                cb.like(cb.lower(root.get("category").get("name")), likePattern)
+                        )
+                );
+            }
+
             // Filter by userId (required)
             predicates.add(
                     cb.equal(root.get("user").get("id"), userId)

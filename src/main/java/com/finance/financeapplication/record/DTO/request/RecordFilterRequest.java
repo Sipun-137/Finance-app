@@ -8,6 +8,8 @@ import java.time.LocalDate;
 @Data
 public class RecordFilterRequest {
 
+    
+    private String searchTerm;
     private RecordType type;
     private String categoryId;
     private LocalDate from;

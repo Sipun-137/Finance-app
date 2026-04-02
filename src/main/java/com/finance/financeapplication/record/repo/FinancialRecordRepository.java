@@ -80,15 +80,21 @@ public interface FinancialRecordRepository extends
 
     // Monthly trend — groups by year + month, returns income and expense per month
     // Used to render the monthly trend line chart on the dashboard
-    @Query("SELECT FUNCTION('YEAR', r.recordDate) AS year, " +
-            "FUNCTION('MONTH', r.recordDate) AS month, " +
-            "r.type AS type, SUM(r.amount) AS total " +
-            "FROM FinancialRecord r " +
-            "WHERE r.user.id = :userId " +
-            "AND r.recordDate BETWEEN :from AND :to " +
-            "GROUP BY FUNCTION('YEAR', r.recordDate), FUNCTION('MONTH', r.recordDate), r.type " +
-            "ORDER BY FUNCTION('YEAR', r.recordDate) ASC, FUNCTION('MONTH', r.recordDate) ASC")
-    List<MonthlyTrend> getMonthlyTrends(
+    @Query(value =
+            "SELECT EXTRACT(YEAR  FROM r.record_date) AS year,  " +
+                    "       EXTRACT(MONTH FROM r.record_date) AS month, " +
+                    "       r.type                            AS type,  " +
+                    "       SUM(r.amount)                     AS total  " +
+                    "FROM   financial_records r " +
+                    "WHERE  r.user_id     = :userId " +
+                    "AND    r.is_deleted  = false " +
+                    "AND    r.record_date BETWEEN :from AND :to " +
+                    "GROUP BY EXTRACT(YEAR  FROM r.record_date), " +
+                    "         EXTRACT(MONTH FROM r.record_date), " +
+                    "         r.type " +
+                    "ORDER BY year ASC, month ASC",
+            nativeQuery = true)
+    List<Object[]> getMonthlyTrends(
             @Param("userId") String userId,
             @Param("from") LocalDate from,
             @Param("to") LocalDate to);

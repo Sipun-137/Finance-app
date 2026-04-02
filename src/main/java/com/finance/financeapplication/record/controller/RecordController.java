@@ -1,6 +1,7 @@
 package com.finance.financeapplication.record.controller;
 
 
+import com.finance.financeapplication.audit.annotation.Auditable;
 import com.finance.financeapplication.auth.model.UserPrincipal;
 import com.finance.financeapplication.common.DTO.ApiResponse;
 import com.finance.financeapplication.common.DTO.PagedResponse;
@@ -33,6 +34,7 @@ public class RecordController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
+    @Auditable(action = "CREATE_RECORD", resource = "record")
     public ResponseEntity<ApiResponse<RecordResponse>> createRecord(
             Authentication authentication,
             @RequestBody @Valid CreateRecordRequest request
@@ -51,6 +53,7 @@ public class RecordController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST','VIEWER')")
+    @Auditable(action = "VIEW_RECORD_BY_ID", resource = "record")
     public ResponseEntity<ApiResponse<RecordResponse>> getById(
             @PathVariable String id,
             Authentication authentication
@@ -68,6 +71,7 @@ public class RecordController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST','VIEWER')")
+    @Auditable(action = "VIEW_RECORDS", resource = "record")
     public ResponseEntity<ApiResponse<PagedResponse<RecordResponse>>> getAllRecords(
             Authentication authentication,
             RecordFilterRequest filter,
@@ -92,6 +96,7 @@ public class RecordController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
+    @Auditable(action = "UPDATE_RECORD", resource = "record")
     public ResponseEntity<ApiResponse<RecordResponse>> updateRecord(
             @PathVariable String id,
             Authentication authentication,
@@ -110,6 +115,7 @@ public class RecordController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
+    @Auditable(action = "DELETE_RECORD", resource = "record")
     public ResponseEntity<ApiResponse<Void>> deleteRecord(
             @PathVariable String id,
             Authentication authentication
@@ -126,6 +132,7 @@ public class RecordController {
 
     @GetMapping("/recent")
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST','VIEWER')")
+    @Auditable(action = "VIEW_RECENT_RECORDS", resource = "record")
     public ResponseEntity<ApiResponse<List<RecordResponse>>> getRecentRecords(
             Authentication authentication,
             @RequestParam(defaultValue = "5") int limit
