@@ -159,7 +159,6 @@ Recommended testing strategy for improvement:
 - No refresh token flow; JWT is short-lived access-token only.
 - No database migration tool (Flyway/Liquibase) yet.
 - `dev` profile currently contains local DB credentials in config file.
-- Security allows `/api/v1/health`, but no dedicated health controller is currently implemented.
 - Role persistence is represented as `Set<Role>` in `User`; schema behavior should be validated across environments.
 
 ## Next Improvements
