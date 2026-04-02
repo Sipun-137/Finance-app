@@ -2,9 +2,13 @@ package com.finance.financeapplication.record.DTO.request;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UpdateCategoryRequest {
     @Size(max = 100, message = "Name must not exceed 100 characters")
     private String name;

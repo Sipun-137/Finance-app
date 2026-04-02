@@ -34,7 +34,6 @@ public class UserServiceImpl implements UserService {
             throw new BadRequestException("Email already in use: " + request.getEmail());
         }
 
-
         User user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
@@ -169,6 +168,12 @@ public class UserServiceImpl implements UserService {
 
         log.info("Removed role {} from user {}", roleName, user.getEmail());
         return toResponse(user);
+    }
+
+    @Override
+    public User findEntityById(String id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
     // ── Mapper ────────────────────────────────────────────────────────────────

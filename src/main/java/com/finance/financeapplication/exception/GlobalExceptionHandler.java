@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
         log.warn("Validation failed: {}", fieldErrors);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(ApiResponse.<Map<String, String>>failure("Validation failed")
+                .body(ApiResponse.<Map<String, String>>failure(fieldErrors.toString())
                 );
     }
 

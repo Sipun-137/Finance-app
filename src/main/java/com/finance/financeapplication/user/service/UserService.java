@@ -42,4 +42,6 @@ public interface UserService {
 
     // Remove a role from a user — admin only
     UserResponse removeRole(String userId, Role roleName);
+
+    User findEntityById(String id);
 }
