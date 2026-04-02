@@ -110,9 +110,18 @@ Standard response envelope:
 
 Current state:
 
-- Test module contains `FinanceApplicationTests.contextLoads()` as a smoke test.
+- Unit tests are implemented for core service-layer business logic.
+- Smoke test validates test-module wiring (`FinanceApplicationTests`).
 
-Run tests:
+Implemented unit test classes:
+
+- `CategoryServiceImplTest` (`7` tests)
+- `UserServiceImplTest` (`9` tests)
+- `FinancialRecordServiceImplTest` (`11` tests)
+
+Current suite total: `28` tests.
+
+Run all tests:
 
 ```bash
 ./mvnw test
@@ -124,16 +133,29 @@ Windows:
 .\mvnw.cmd test
 ```
 
+Run a single test class:
+
+```bash
+./mvnw -Dtest=FinancialRecordServiceImplTest test
+```
+
+```bash
+./mvnw -Dtest=CategoryServiceImplTest test
+```
+
+```bash
+./mvnw -Dtest=UserServiceImplTest test
+```
+
 Recommended testing strategy for improvement:
 
-- Unit tests for service layer business rules.
 - Repository tests for custom queries/specifications.
 - Controller tests for authorization and validation behavior.
 - Integration tests for full auth -> protected endpoint flow.
 
 ## Known Limitations
 
-- Test coverage is currently minimal.
+- Current automated tests focus mainly on service layer; repository and controller layers need more coverage.
 - No refresh token flow; JWT is short-lived access-token only.
 - No database migration tool (Flyway/Liquibase) yet.
 - `dev` profile currently contains local DB credentials in config file.
@@ -142,7 +164,7 @@ Recommended testing strategy for improvement:
 
 ## Next Improvements
 
-1. Add comprehensive automated tests (unit, integration, security).
+1. Add repository and controller test suites.
 2. Introduce Flyway/Liquibase migrations for deterministic schema evolution.
 3. Add refresh token + token revocation strategy.
 4. Add rate limiting and login-attempt protections.

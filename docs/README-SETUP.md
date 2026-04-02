@@ -95,6 +95,18 @@ Windows:
 .\mvnw.cmd clean install
 ```
 
+Run tests (recommended before starting the app):
+
+```bash
+./mvnw test
+```
+
+Windows:
+
+```powershell
+.\mvnw.cmd test
+```
+
 Run:
 
 ```bash
@@ -132,3 +144,4 @@ Swagger/OpenAPI UI:
 - `.env` exists in the repository, but Spring Boot does not automatically load `.env` by default.
 - If you use `.env`, load values through your IDE run configuration or shell tooling.
 - In `dev`, schema is managed by Hibernate with `spring.jpa.hibernate.ddl-auto=update`.
+

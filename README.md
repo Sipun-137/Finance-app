@@ -29,3 +29,23 @@ Windows PowerShell:
 
 Default base URL: `http://localhost:8080/api/v1`  
 Swagger UI: `http://localhost:8080/swagger-ui/index.html`
+
+## Testing
+
+Run all tests:
+
+```bash
+./mvnw test
+```
+
+Windows PowerShell:
+
+```powershell
+.\mvnw.cmd test
+```
+
+Current automated tests include unit tests for:
+
+- `UserServiceImpl`
+- `CategoryServiceImpl`
+- `FinancialRecordServiceImpl`
