@@ -5,6 +5,8 @@ import com.finance.financeapplication.audit.DTO.AuditResponseDTO;
 import com.finance.financeapplication.audit.service.AuditLogService;
 import com.finance.financeapplication.auth.DTO.AuditLogFilterDTO;
 import com.finance.financeapplication.common.DTO.PagedResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/audit")
 @RequiredArgsConstructor
+@Tag(name = "Audit Log APIs", description = "Audit Log related APIs")
 public class AuditLogController {
 
     private final AuditLogService auditLogService;
@@ -25,6 +28,7 @@ public class AuditLogController {
 
     @GetMapping("/filter")
     @PreAuthorize("hasAnyRole('ADMIN')")
+    @Operation(summary = "Filter Audit Logs", description = "Filter audit logs based on various criteria such as user, action, resource, and date range.")
     public PagedResponse<AuditResponseDTO> filterAuditLogs(
             @PageableDefault Pageable pageable,
             AuditLogFilterDTO filterDTO

@@ -10,6 +10,8 @@ import com.finance.financeapplication.record.DTO.request.RecordFilterRequest;
 import com.finance.financeapplication.record.DTO.request.UpdateRecordRequest;
 import com.finance.financeapplication.record.DTO.response.RecordResponse;
 import com.finance.financeapplication.record.service.FinancialRecordService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/record")
 @RequiredArgsConstructor
+@Tag(name = "Record APIs", description = "Record related APIs")
 public class RecordController {
     private final FinancialRecordService service;
 
@@ -35,6 +38,7 @@ public class RecordController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
     @Auditable(action = "CREATE_RECORD", resource = "record")
+    @Operation(summary = "Create a new record")
     public ResponseEntity<ApiResponse<RecordResponse>> createRecord(
             Authentication authentication,
             @RequestBody @Valid CreateRecordRequest request
@@ -54,6 +58,7 @@ public class RecordController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST','VIEWER')")
     @Auditable(action = "VIEW_RECORD_BY_ID", resource = "record")
+    @Operation(summary = "Get a record by ID")
     public ResponseEntity<ApiResponse<RecordResponse>> getById(
             @PathVariable String id,
             Authentication authentication
@@ -72,6 +77,7 @@ public class RecordController {
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST','VIEWER')")
     @Auditable(action = "VIEW_RECORDS", resource = "record")
+    @Operation(summary = "Get all records")
     public ResponseEntity<ApiResponse<PagedResponse<RecordResponse>>> getAllRecords(
             Authentication authentication,
             RecordFilterRequest filter,
@@ -97,6 +103,7 @@ public class RecordController {
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
     @Auditable(action = "UPDATE_RECORD", resource = "record")
+    @Operation(summary = "Update a record")
     public ResponseEntity<ApiResponse<RecordResponse>> updateRecord(
             @PathVariable String id,
             Authentication authentication,
@@ -116,6 +123,7 @@ public class RecordController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
     @Auditable(action = "DELETE_RECORD", resource = "record")
+    @Operation(summary = "Delete a record")
     public ResponseEntity<ApiResponse<Void>> deleteRecord(
             @PathVariable String id,
             Authentication authentication
@@ -133,6 +141,7 @@ public class RecordController {
     @GetMapping("/recent")
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST','VIEWER')")
     @Auditable(action = "VIEW_RECENT_RECORDS", resource = "record")
+    @Operation(summary = "Get recent records")
     public ResponseEntity<ApiResponse<List<RecordResponse>>> getRecentRecords(
             Authentication authentication,
             @RequestParam(defaultValue = "5") int limit

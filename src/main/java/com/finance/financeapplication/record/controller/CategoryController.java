@@ -7,6 +7,8 @@ import com.finance.financeapplication.record.DTO.request.CreateCategoryRequest;
 import com.finance.financeapplication.record.DTO.request.UpdateCategoryRequest;
 import com.finance.financeapplication.record.DTO.response.CategoryResponse;
 import com.finance.financeapplication.record.service.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,12 +21,14 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/categories")
+@Tag(name = "Category APIs", description = "Category related APIs")
 public class CategoryController {
 
     private final CategoryService service;
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
+    @Operation(summary = "Create Category", description = "Create a new category.")
     public ResponseEntity<ApiResponse<CategoryResponse>> createCategory(
             @Valid @RequestBody CreateCategoryRequest request
     ) {
@@ -40,6 +44,7 @@ public class CategoryController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST','VIEWER')")
+    @Operation(summary = "Get All Categories", description = "Get all categories.")
     public ResponseEntity<ApiResponse<Iterable<CategoryResponse>>> getAllCategories() {
         List<CategoryResponse> categories = service.findAllCategories();
         return ResponseEntity.ok(
@@ -53,6 +58,7 @@ public class CategoryController {
 
     @GetMapping("/type/{type}")
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST','VIEWER')")
+    @Operation(summary = "Get Categories by Type", description = "Get categories by type.")
     public ResponseEntity<ApiResponse<List<CategoryResponse>>> getByType(
             @PathVariable RecordType type
     ) {
@@ -69,6 +75,7 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST','VIEWER')")
+    @Operation(summary = "Get Category by ID", description = "Get a category by ID.")
     public ResponseEntity<ApiResponse<CategoryResponse>> getById(
             @PathVariable String id
     ) {
@@ -85,6 +92,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
+    @Operation(summary = "Update Category", description = "Update an existing category.")
     public ResponseEntity<ApiResponse<CategoryResponse>> updateCategory(
             @PathVariable String id,
             @RequestBody UpdateCategoryRequest request
@@ -102,6 +110,7 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
+    @Operation(summary = "Delete Category", description = "Delete a category.")
     public ResponseEntity<ApiResponse<Void>> deleteCategory(
             @PathVariable String id
     ) {

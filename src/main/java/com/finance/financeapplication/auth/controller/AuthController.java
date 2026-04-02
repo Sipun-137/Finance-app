@@ -6,6 +6,8 @@ import com.finance.financeapplication.auth.DTO.LoginRequestDTO;
 import com.finance.financeapplication.auth.model.UserPrincipal;
 import com.finance.financeapplication.auth.service.JwtService;
 import com.finance.financeapplication.common.DTO.ApiResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/auth")
 @Slf4j
+@Tag(name = "Authentication", description = "Endpoints for user authentication and JWT token generation")
 public class AuthController {
 
     @Autowired
@@ -38,6 +41,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @Auditable(action = "USER_LOGIN", resource = "users", preAuth = true)
+    @Operation(summary = "User Login", description = "Authenticate user and return JWT token")
     public ResponseEntity<ApiResponse<?>> login(@RequestBody LoginRequestDTO dto) {
 
         try {
