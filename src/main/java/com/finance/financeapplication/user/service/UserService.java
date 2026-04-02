@@ -1,6 +1,5 @@
 package com.finance.financeapplication.user.service;
 
-
 import com.finance.financeapplication.common.enums.Role;
 import com.finance.financeapplication.common.enums.UserStatus;
 import com.finance.financeapplication.user.DTO.request.UserRequestDTO;
@@ -9,7 +8,6 @@ import com.finance.financeapplication.user.DTO.response.UserResponse;
 import com.finance.financeapplication.user.model.User;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface UserService {
 
