@@ -37,7 +37,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    @Auditable(action = "LOGIN", resource = "users")
+    @Auditable(action = "USER_LOGIN", resource = "users", preAuth = true)
     public ResponseEntity<ApiResponse<?>> login(@RequestBody LoginRequestDTO dto) {
 
         try {

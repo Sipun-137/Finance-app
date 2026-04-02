@@ -10,4 +10,6 @@ import java.lang.annotation.Target;
 public @interface Auditable {
     String action();
     String resource() default "";
+    String resourceIdExpression() default "";
+    boolean preAuth() default false;
 }

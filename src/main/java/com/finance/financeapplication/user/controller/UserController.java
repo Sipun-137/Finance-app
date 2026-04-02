@@ -1,6 +1,7 @@
 package com.finance.financeapplication.user.controller;
 
 
+import com.finance.financeapplication.audit.annotation.Auditable;
 import com.finance.financeapplication.common.DTO.ApiResponse;
 import com.finance.financeapplication.common.enums.Role;
 import com.finance.financeapplication.common.enums.UserStatus;
@@ -29,6 +30,7 @@ public class UserController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
+    @Auditable(action = "CREATE_USER", resource = "users")
     public ResponseEntity<ApiResponse<UserResponse>> createUser(
             @Valid @RequestBody UserRequestDTO request) {
 
@@ -41,6 +43,7 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
+    @Auditable(action = "VIEW_USERS", resource = "users")
     public ResponseEntity<ApiResponse<List<UserResponse>>> getAllUsers(
             @RequestParam(required = false) UserStatus status) {
 
@@ -53,6 +56,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'ANALYST', 'VIEWER')")
+    @Auditable(action = "VIEW_USER_BY_ID", resource = "users")
     public ResponseEntity<ApiResponse<UserResponse>> getUserById(
             @PathVariable String id) {
 
@@ -62,6 +66,7 @@ public class UserController {
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Auditable(action = "UPDATE_USER", resource = "users")
     public ResponseEntity<ApiResponse<UserResponse>> updateUser(
             @PathVariable String id,
             @Valid @RequestBody UserUpdateDTO request) {
@@ -73,6 +78,7 @@ public class UserController {
 
     @PatchMapping("/{id}/deactivate")
     @PreAuthorize("hasRole('ADMIN')")
+    @Auditable(action = "DEACTIVATE_USER", resource = "users")
     public ResponseEntity<ApiResponse<Void>> deactivateUser(@PathVariable String id) {
         log.info("Deactivating user with id: {}", id);
         userService.deactivateUser(id);
@@ -81,6 +87,7 @@ public class UserController {
 
     @PatchMapping("/{id}/activate")
     @PreAuthorize("hasRole('ADMIN')")
+    @Auditable(action = "ACTIVATE_USER", resource = "users")
     public ResponseEntity<ApiResponse<Void>> activateUser(@PathVariable String id) {
         log.info("Activating user with id: {}", id);
         userService.activateUser(id);
@@ -89,6 +96,7 @@ public class UserController {
 
     @PostMapping("/{id}/roles")
     @PreAuthorize("hasRole('ADMIN')")
+    @Auditable(action = "ASSIGN_ROLE", resource = "users")
     public ResponseEntity<ApiResponse<UserResponse>> assignRole(
             @PathVariable String id,
             @Valid @RequestBody AssignRoleRequest request) {
@@ -100,6 +108,7 @@ public class UserController {
 
     @DeleteMapping("/{id}/roles")
     @PreAuthorize("hasRole('ADMIN')")
+    @Auditable(action = "REMOVE_ROLE", resource = "users")
     public ResponseEntity<ApiResponse<UserResponse>> removeRole(
             @PathVariable String id,
             @RequestParam Role role) {
