@@ -1,7 +1,7 @@
 package com.finance.financeapplication.audit.specification;
 
 import com.finance.financeapplication.audit.model.AuditLog;
-import com.finance.financeapplication.auth.DTO.AuditLogFilterDTO;
+import com.finance.financeapplication.audit.DTO.AuditLogFilterDTO;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 

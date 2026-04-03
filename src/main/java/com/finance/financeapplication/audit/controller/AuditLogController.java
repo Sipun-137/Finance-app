@@ -3,7 +3,7 @@ package com.finance.financeapplication.audit.controller;
 
 import com.finance.financeapplication.audit.DTO.AuditResponseDTO;
 import com.finance.financeapplication.audit.service.AuditLogService;
-import com.finance.financeapplication.auth.DTO.AuditLogFilterDTO;
+import com.finance.financeapplication.audit.DTO.AuditLogFilterDTO;
 import com.finance.financeapplication.common.DTO.PagedResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

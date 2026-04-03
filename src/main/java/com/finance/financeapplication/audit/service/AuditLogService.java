@@ -4,7 +4,7 @@ import com.finance.financeapplication.audit.DTO.AuditResponseDTO;
 import com.finance.financeapplication.audit.model.AuditLog;
 import com.finance.financeapplication.audit.repo.AuditLogRepository;
 import com.finance.financeapplication.audit.specification.AuditSpecification;
-import com.finance.financeapplication.auth.DTO.AuditLogFilterDTO;
+import com.finance.financeapplication.audit.DTO.AuditLogFilterDTO;
 import com.finance.financeapplication.common.DTO.PagedResponse;
 import com.finance.financeapplication.user.model.User;
 import lombok.RequiredArgsConstructor;

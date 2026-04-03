@@ -1,9 +1,10 @@
-package com.finance.financeapplication.auth.DTO;
+package com.finance.financeapplication.audit.DTO;
 
 
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,6 +13,6 @@ public class AuditLogFilterDTO {
     private String userId;
     private String action;
     private String resource;
-    private LocalDateTime fromDate;
-    private LocalDateTime toDate;
+    private LocalDate fromDate;
+    private LocalDate toDate;
 }
